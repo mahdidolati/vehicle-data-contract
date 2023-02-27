@@ -3,6 +3,11 @@ Environment:
 ```
 Operating System: Ubuntu 22.04.1 LTS
 Python: 3.10.6
+eth_utils: '1.9.5'
+web3: '5.31.3'
+solcx: '1.1.1'
+dotenv: '1.0.0'
+
 ```
 
 Prepare the environment
@@ -22,3 +27,4 @@ sudo add-apt-repository universe
 sudo apt install libfuse2
 ./ganache-2.7.0-linux-x86_64.AppImage
 ```
+
