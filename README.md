@@ -1,5 +1,5 @@
 
-Environment:
+# Environment:
 ```
 Operating System: Ubuntu 22.04.1 LTS
 Python: 3.10.6
@@ -10,7 +10,7 @@ dotenv: '1.0.0'
 
 ```
 
-Prepare the environment
+## Prepare the environment
 ```
 sudo apt update
 sudo apt install python3-pip
@@ -28,3 +28,13 @@ sudo apt install libfuse2
 ./ganache-2.7.0-linux-x86_64.AppImage
 ```
 
+# Run
+Run the blockchain with the following command:
+```
+./ganache-2.7.0-linux-x86_64.AppImage 
+```
+
+Run the program with the following command:
+```
+python3 main.py
+```
