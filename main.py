@@ -49,8 +49,8 @@ with open("./SimpleStorageContract.sol", "r") as file:
 
         w3 = Web3(Web3.HTTPProvider("HTTP://127.0.0.1:7545"))
         chain_id = 1337
-        my_address = "0x7B33E899ec188307D642C25b9943e653F041671d"
-        private_key = "0x9a21149c3c4fba20f2c7d860ff76f6718aacb2d1682a18c170d73ddbd5d87d1f"
+        my_address = "0x166f434Fc3E0e0F738b5c163686d9AD3ac40673B"
+        private_key = "0xa428cdbfe0df55fc753804d830720814f71c15a5892d45585f0f9eb42ec3dd03"
 
         SimpleStorage = w3.eth.contract(abi=abi, bytecode=bytecode)
         nonce = w3.eth.getTransactionCount(my_address)
@@ -64,3 +64,19 @@ with open("./SimpleStorageContract.sol", "r") as file:
         tx_receipt = w3.eth.wait_for_transaction_receipt(tx_hash)
         print(type(tx_receipt), tx_receipt)
         print("Done!")
+
+        storage_sol = w3.eth.contract(
+            abi=abi,
+            address=tx_receipt.contractAddress
+        )
+        call_fun = storage_sol.functions.store(5).buildTransaction({
+            "chainId": chain_id,
+            "from": my_address,
+            "nonce": nonce+1
+        })
+        sign_call_fun = w3.eth.account.sign_transaction(call_fun, private_key=private_key)
+        tx_call_fun_hash = w3.eth.send_raw_transaction(sign_call_fun.rawTransaction)
+        tx_call_fun_receipt = w3.eth.wait_for_transaction_receipt(tx_call_fun_hash)
+
+        print(storage_sol.functions.retrieve().call())
+        

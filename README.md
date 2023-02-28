@@ -1,4 +1,3 @@
-
 # Environment:
 ```
 Operating System: Ubuntu 22.04.1 LTS
@@ -38,3 +37,6 @@ Run the program with the following command:
 ```
 python3 main.py
 ```
+
+# References:
+[1] https://sesamedisk.com/smart-contracts-in-python-complete-guide/
