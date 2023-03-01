@@ -1,18 +1,26 @@
 # Environment:
 ```
 Operating System: Ubuntu 22.04.1 LTS
-Python: 3.10.6
+Python: 3.7.16
 eth_utils: '1.9.5'
 web3: '5.31.3'
 solcx: '1.1.1'
-dotenv: '1.0.0'
+dotenv: '0.21.1'
 
 ```
 
 ## Prepare the environment
 ```
 sudo apt update
+sudo apt install python3.7
+sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.9 2
+sudo update-alternatives --config python3
+sudo apt install python3.7-dev
+sudo apt install python3.7-distutils
+sudo apt install python3-apt
 sudo apt install python3-pip
+sudo apt install virtualenv
+virtualenv --python=python3.7 contract37
 pip install web3
 pip install py-solc-x
 pip install eth-utils
@@ -28,6 +36,10 @@ sudo apt install libfuse2
 ```
 
 # Run
+```
+source contract37/bin/activate
+```
+
 Run the blockchain with the following command:
 ```
 ./ganache-2.7.0-linux-x86_64.AppImage 
