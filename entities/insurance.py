@@ -12,10 +12,10 @@ class Insurance:
     def __init__(self):
         pass
 
-    def read(self, contract_path, contract_name, contract_address):
-        bytecode, abi = get_compiled_contract(contract_path, contract_name)
+    def read(self, car):
+        bytecode, abi = get_compiled_contract(car.contract_path, car.contract_name)
         contract = Const.w3.eth.contract(
             abi=abi,
-            address=contract_address
+            address=car.contract_address
         )
         print(contract.functions.retrieve().call())

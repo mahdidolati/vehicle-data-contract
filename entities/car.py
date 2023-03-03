@@ -9,10 +9,12 @@ from constants import Const
 
 
 class Car:
-    def __init__(self, c_id):
+    def __init__(self, c_id, account_address, account_pk, contract_path, contract_name):
         self.id = c_id
-        self.address = "0xEBf52D1635488ebdec786350caC943FcD4aa8395"
-        self.private_key = "0xfe5121b16d09c5d3ae2745cfbc57082c33efdbc3a2daaf0e8984810d2e7af6e0"
+        self.contract_path = contract_path
+        self.contract_name = contract_name
+        self.address = account_address
+        self.private_key = account_pk
         self.contract = None
         self.contract_address = None
         self.nonce = 0
@@ -25,8 +27,8 @@ class Car:
         self.nonce = self.nonce + 1
         return n
 
-    def init(self, contract_path, contract_name):
-        bytecode, abi = get_compiled_contract(contract_path, contract_name)
+    def init(self):
+        bytecode, abi = get_compiled_contract(self.contract_path, self.contract_name)
         SimpleStorage = Const.w3.eth.contract(abi=abi, bytecode=bytecode)
         self.nonce = Const.w3.eth.getTransactionCount(self.address)
         transaction = SimpleStorage.constructor().buildTransaction({
