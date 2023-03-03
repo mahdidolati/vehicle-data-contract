@@ -9,7 +9,7 @@ def run():
     car = Car(car_id)
     car_id = car_id + 1
     car.init()
-    contract_db[car.id] = car.abi
+    contract_db[car.id] = car.contract_address
     car.use()
     car.read()
 
