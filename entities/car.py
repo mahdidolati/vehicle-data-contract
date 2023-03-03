@@ -25,8 +25,8 @@ class Car:
         self.nonce = self.nonce + 1
         return n
 
-    def init(self):
-        bytecode, abi = get_compiled_contract("./sol_contracts/", "SimpleStorageContract.sol")
+    def init(self, contract_path, contract_name):
+        bytecode, abi = get_compiled_contract(contract_path, contract_name)
         SimpleStorage = Const.w3.eth.contract(abi=abi, bytecode=bytecode)
         self.nonce = Const.w3.eth.getTransactionCount(self.address)
         transaction = SimpleStorage.constructor().buildTransaction({
@@ -51,7 +51,7 @@ class Car:
         self.milage = self.milage + 1
 
         # send to the blockchain
-        call_fun = self.contract.functions.store(5).buildTransaction({
+        call_fun = self.contract.functions.store(self.milage).buildTransaction({
             "chainId": Const.chain_id,
             "from": self.address,
             "nonce": self.get_nonce()
