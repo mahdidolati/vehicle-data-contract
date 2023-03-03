@@ -49,8 +49,8 @@ with open("./SimpleStorageContract.sol", "r") as file:
 
         w3 = Web3(Web3.HTTPProvider("HTTP://127.0.0.1:7545"))
         chain_id = 1337
-        my_address = "0x60819a6076bF3016f30DE0759D31a61d2824DF68"
-        private_key = "0x058f0d0461e12ca46cabb1c9d9c46f4cfe73f35678d38ef6e8458acea280c184"
+        my_address = "0x0c7208c0FeF4C7a6511600742a5a2C27444D835C"
+        private_key = "0x47671f082c7e2ae59cf250508f155612f35a8d4af7c03500191b743d60a29ceb"
 
         SimpleStorage = w3.eth.contract(abi=abi, bytecode=bytecode)
         nonce = w3.eth.getTransactionCount(my_address)

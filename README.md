@@ -35,6 +35,17 @@ sudo apt install libfuse2
 ./ganache-2.7.0-linux-x86_64.AppImage
 ```
 
+## Upgrade to use conda
+
+conda install 3.8.5
+conda create --name environment_name python=3.8.5
+conda activate environment_name    # to activate it 
+conda deactivate                   # to deactivate it 
+conda remove -n environment_name   # to remove it
+conda install -n environment_name [package] # install package in it
+
+
+
 # Run
 ```
 source contract37/bin/activate
