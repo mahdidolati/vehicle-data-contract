@@ -9,8 +9,7 @@ from constants import Const
 
 
 class Car:
-    def __init__(self, c_id, account_address, account_pk, contract_path, contract_name):
-        self.id = c_id
+    def __init__(self, account_address, account_pk, contract_path, contract_name):
         self.contract_path = contract_path
         self.contract_name = contract_name
         self.address = account_address

@@ -30,10 +30,12 @@ def get_compiled_contract(contract_path, contract_name):
             },
         },
         solc_version="0.6.0",
+        output_dir="./sol_contracts",
+        overwrite=True
     )
 
-    file = open("compiled_code.json", "w")
-    json.dump(compiled_sol, file)
+    # file = open("compiled_code.json", "w")
+    # json.dump(compiled_sol, file)
 
     bytecode = compiled_sol["contracts"]["SimpleStorageContract.sol"]\
     ["SimpleStorage"]["evm"]["bytecode"]["object"]
