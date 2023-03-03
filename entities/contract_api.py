@@ -29,9 +29,10 @@ def get_compiled_contract(contract_path, contract_name):
                 }
             },
         },
-        solc_version="0.6.0",
-        output_dir="./sol_contracts",
-        overwrite=True
+        solc_version = "0.6.8",
+        allow_paths = ["/home/mahdi/.solcx", "/home/mahdi/Projects/smart-contract/contract37/lib/python3.7/site-packages/ethpm/"]
+        # output_dir = "./sol_contracts",
+        # overwrite = True
     )
 
     # file = open("compiled_code.json", "w")
