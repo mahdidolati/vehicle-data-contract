@@ -26,7 +26,7 @@ class Car:
         return n
 
     def init(self):
-        file = open("./SimpleStorageContract.sol", "r")
+        file = open("./sol_contracts/SimpleStorageContract.sol", "r")
         simple_storage_file = file.read()
         print(simple_storage_file)
 

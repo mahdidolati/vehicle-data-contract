@@ -1,5 +1,5 @@
 from solcx import install_solc
-from car import Car
+from entities.car import Car
 
 def run():
     # a public directory to map cars to contracts
