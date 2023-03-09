@@ -40,4 +40,5 @@ brownie run scripts/main.py --network glocal
 
 [5] https://eth-brownie.readthedocs.io/en/stable/network-management.html
 
+[6] https://github.com/smartcontractkit/full-blockchain-solidity-course-py/blob/main/README.md
 
