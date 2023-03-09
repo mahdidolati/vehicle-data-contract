@@ -1,5 +1,3 @@
-import os
-import json
 from scripts.constants import Const
 from brownie import Contract
 
@@ -22,6 +20,6 @@ class Insurance:
         contract = Contract(car.contract.address)
         tx_receipt = contract.fund({    
             "from": self.account,
-            "value": 50735 * 500000000000
+            "value": 50735 * 50
         })
         tx_receipt.wait(1)

@@ -1,7 +1,5 @@
-import os
-import json
 from scripts.constants import Const
-from brownie import SimpleStorage, accounts
+from brownie import SimpleStorage
 
 
 class Car:

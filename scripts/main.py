@@ -1,6 +1,6 @@
 from scripts.entities.car import Car
 from scripts.entities.insurance import Insurance
-from brownie import SimpleStorage, accounts
+from brownie import accounts
 
 
 def run():
