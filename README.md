@@ -31,9 +31,13 @@ brownie run scripts/deploy_interact.py --network glocal
 
 # References:
 [1] https://sesamedisk.com/smart-contracts-in-python-complete-guide/
+
 [2] https://chainstack.com/the-brownie-tutorial-series-part-1/
+
 [3] https://ethereum.stackexchange.com/questions/110979/deploying-smartcontract-to-ganache-desktop-instead-of-ganache-cli-with-brownie
+
 [4] https://ethereum.stackexchange.com/questions/122096/how-to-clean-or-reset-brownie-build-folder
+
 [5] https://eth-brownie.readthedocs.io/en/stable/network-management.html
 
 
