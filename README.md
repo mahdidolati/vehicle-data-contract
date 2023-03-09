@@ -25,6 +25,19 @@ pip install web3
 pip install py-solc-x
 pip install eth-utils
 pip install python-dotenv
+pip install eth-brownie  
+sudo apt install nodejs
+sudo apt install npm
+npm install -g ganache-cli 
+ganache-cli --port 8545 --gasLimit 12000000 --accounts 10 --hardfork istanbul --mnemonic brownie
+brownie networks add Ethereum ganache-local host=http://127.0.0.1:8545 chainid=5777 
+brownie networks add Development ganache-local host=http://127.0.0.1:8545 chainid=5777 accounts=10 default_balance="100 ether"
+brownie run scripts/deploy_interact.py
+##
+brownie networks add Ethereum glocal host=http://127.0.0.1:7545 chainid=5777
+sudo ganache-cli --port 7545 --gasLimit 12000000 --accounts 10 --hardfork istanbul --mnemonic brownie --networkId glocal
+brownie run scripts/deploy_interact.py --network glocal
+rm -rf build
 ```
 
 Download Ganache from `https://trufflesuite.com/ganache/` and install it with following commands:
@@ -63,3 +76,4 @@ python3 main.py
 
 # References:
 [1] https://sesamedisk.com/smart-contracts-in-python-complete-guide/
+[2] https://chainstack.com/the-brownie-tutorial-series-part-1/
