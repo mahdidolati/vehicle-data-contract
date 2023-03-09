@@ -26,7 +26,7 @@ sudo ganache-cli --port 7545 --gasLimit 12000000 --accounts 10 --hardfork istanb
 ```
 source brw/bin/activate
 rm -rf build
-brownie run scripts/deploy_interact.py --network glocal
+brownie run scripts/main.py --network glocal
 ```
 
 # References:

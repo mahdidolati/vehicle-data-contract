@@ -1,13 +1,8 @@
 // SPDX-License-Identifier: MIT
-// pragma solidity >= 0.6.0 < 0.9.0;
-pragma solidity ^0.6.8;
-
-import "/home/mahdi/Projects/smart-contract/contract37/lib/python3.7/site-packages/ethpm/ethpm-spec/examples/safe-math-lib/contracts/SafeMathLib.sol";
+pragma solidity ^0.8.0;
 
 
-contract SimpleStorage {
-    using SafeMathLib for uint256;
-    
+contract SimpleStorage {    
     uint256 favoriteNumber;
     address owner;
     address[] public funders;
