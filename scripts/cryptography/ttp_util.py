@@ -23,13 +23,11 @@ class ThirdParty:
 
     def id_enc(self, ID, msg):
         cipher_text = self.ibe.encrypt(self.master_public_key, ID, msg)
-        # print(cipher_text, type(cipher_text))
         for k in cipher_text:
-            if str(type(cipher_text[k])) == "<class 'integer.Element'>":
+            if type(cipher_text[k]) is integer:
                 cipher_text[k] = int(cipher_text[k])
             else:
                 cipher_text[k] = self.group.serialize(cipher_text[k])
-        # print(cipher_text)
         pickled = pickle.dumps(cipher_text)
         return pickled
 

@@ -1,6 +1,6 @@
 from scripts.entities.car import Car
 from scripts.entities.insurance import Insurance
-from scripts.cryptography.example_1 import ThirdParty
+from scripts.cryptography.ttp_util import ThirdParty
 from brownie import accounts
 import sqlite3
 import pickle
