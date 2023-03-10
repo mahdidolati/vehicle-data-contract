@@ -5,6 +5,7 @@ from brownie import accounts
 import sqlite3
 import pickle
 import json
+from time import time
 
 
 def run():
@@ -26,8 +27,9 @@ def run():
 
     ttp = ThirdParty()
     ID = "bob@mail.com"
-    data_adr = "hello"
-    data_val = ttp.id_enc(ID, 1)
+    data_adr = f"hello-{time()}"
+    data_val = b"new data"
+    data_val = ttp.id_enc(ID, data_val)
     insert_query = """INSERT INTO vehicle_data (DATA_ADR, DATA_VAL) VALUES (?, ?)"""
     count = cursor.execute(insert_query, (data_adr, data_val,))
     sqliteConnection.commit()

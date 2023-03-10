@@ -55,3 +55,5 @@ brownie run scripts/main.py --network glocal
 
 [6] https://github.com/smartcontractkit/full-blockchain-solidity-course-py/blob/main/README.md
 
+[7] https://stackoverflow.com/questions/43251642/how-to-serialize-store-the-ciphertext-encrypted-by-hybrid-cpabe-bsw07-in-charm
+
