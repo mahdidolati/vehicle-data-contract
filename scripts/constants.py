@@ -1,3 +1,4 @@
+from scripts.entities.db_interface import DbInterface
+
 class Const:
-    w3 = None
-    chain_id = 1337
+    db = DbInterface()

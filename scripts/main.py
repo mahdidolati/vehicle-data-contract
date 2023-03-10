@@ -2,9 +2,7 @@ from scripts.entities.car import Car
 from scripts.entities.insurance import Insurance
 from scripts.cryptography.ttp_util import ThirdParty
 from brownie import accounts
-import sqlite3
-import pickle
-import json
+from scripts.constants import Const
 from time import time
 
 
@@ -21,30 +19,19 @@ def run():
 
     print(f"Car: {car.account.balance()} -- Insurance: {insurance.account.balance()}")
 
-    sqliteConnection = sqlite3.connect("database.db")
-    cursor = sqliteConnection.cursor()
-    print(f"Database created and Suncessfully Connected to SQLite")
-
     ttp = ThirdParty()
-    ID = "bob@mail.com"
-    data_adr = f"hello-{time()}"
-    data_val = b"new data"
+    ID = insurance.account.address
+    data_adr = f"adr-{time()}"
+    data_val = bytes(f"new data-{time()}", "utf-8")
     data_val = ttp.id_enc(ID, data_val)
-    insert_query = """INSERT INTO vehicle_data (DATA_ADR, DATA_VAL) VALUES (?, ?)"""
-    count = cursor.execute(insert_query, (data_adr, data_val,))
-    sqliteConnection.commit()
-    print(f"Inserted {count.rowcount}.")
+    
+    Const.db.save(data_adr, data_val)
 
-    select_query = """SELECT * FROM vehicle_data WHERE DATA_ADR = ? LIMIt 1"""
-    cursor.execute(select_query, (data_adr,))
-    rows = cursor.fetchall()
-    if len(rows) > 0:
-        cipher_text = rows[0][1]
-        data_val2 = ttp.id_dec(ID, cipher_text)
-        print(data_val2)
+    cipher_text = Const.db.retrieve(data_adr)
+    data_val2 = ttp.id_dec(ID, cipher_text)
+    print(data_val2)
 
-    cursor.close()
-    sqliteConnection.close()
+    Const.db.close()
 
 
 def main():
