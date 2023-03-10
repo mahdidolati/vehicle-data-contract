@@ -14,12 +14,25 @@ sudo update-alternatives --config python3
 sudo apt install python3-pip
 sudo apt install virtualenv
 virtualenv --python=python3.7 brw
+git clone git@github.com:JHUISI/charm.git
+cd charm
+sudo ./configure.sh
+make
+sudo make test
+sudo make install
 source brw/bin/activate
 pip install eth-brownie  
 sudo apt install nodejs npm
 npm install -g ganache-cli 
 brownie networks add Ethereum glocal host=http://127.0.0.1:7545 chainid=5777
 sudo ganache-cli --port 7545 --gasLimit 12000000 --accounts 10 --hardfork istanbul --mnemonic brownie --networkId glocal
+```
+
+```
+sudo apt install sqlite3 
+sudo apt install ./dbeaver-ce_23.0.0_amd64.deb
+sqlite3 database.db
+CREATE TABLE vehicleData(DATA_ADR text NOT NULL, DATA_VAL text NOT NULL);
 ```
 
 # Run
