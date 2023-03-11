@@ -32,14 +32,14 @@ sudo ganache-cli --port 7545 --gasLimit 12000000 --accounts 10 --hardfork istanb
 sudo apt install sqlite3 
 sudo apt install ./dbeaver-ce_23.0.0_amd64.deb
 sqlite3 database.db
-CREATE TABLE vehicleData(DATA_ADR text NOT NULL, DATA_VAL text NOT NULL);
+sqlite> CREATE TABLE vehicleData(DATA_ADR text NOT NULL, DATA_VAL text NOT NULL);
+sqlite> CREATE TABLE vehicle_data(DATA_ADR text NOT NULL, DATA_VAL BLOB NOT NULL);
 ```
 
 # Run
 ```
 source brw/bin/activate
-rm -rf build
-brownie run scripts/main.py --network glocal
+rm -rf build; brownie run scripts/main.py --network glocal
 ```
 
 # References:
