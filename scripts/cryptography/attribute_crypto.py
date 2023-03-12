@@ -7,7 +7,6 @@ import os
 class AttributeCrypto:
     def __init__(self):
         self.prefix_root = "./scripts/cryptography/att/"
-        self.prefix_crypto = "./att/"
         rm_cmd = "rm" + " " + self.prefix_root + "ttp_*"
         subprocess.run([rm_cmd,], shell=True)
         cpabe_cmd = "cpabe-setup"
@@ -50,7 +49,7 @@ class AttributeCrypto:
                     + self.prefix_root + self.ttp_public + " " \
                     + self.prefix_root + self.ttp_master + " " \
                     + attributes
-        print("==>", pk_cmd)
+        # print("==>", pk_cmd)
         subprocess.run([pk_cmd,], shell=True)
         
         while(os.path.isfile(self.prefix_root + pk_file) == False):
@@ -66,25 +65,25 @@ class AttributeCrypto:
                     + self.prefix_root + pk_file + " " \
                     + self.prefix_root + cipher_file + " " \
                     + "-o " + self.prefix_root + dec_file
-        print(dec_cmd)
-        out_msg = subprocess.Popen([dec_cmd,], shell=True, stdout=subprocess.PIPE)
+        # print(type(dec_cmd), "--", dec_cmd)
+        out_msg = subprocess.Popen([dec_cmd,], shell=True, \
+                        stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         
         while True:
             out_msg2 = str(out_msg.communicate())
-            if not out_msg2.startswith("b"):
-                print(out_msg2)
-            if os.path.isfile(self.prefix_root + dec_file) or out_msg2.startswith("cannot"):
-                sleep(1)
+            if os.path.isfile(self.prefix_root + dec_file) or "cannot" in out_msg2:
                 break
+            sleep(0.001)
 
         decrypted_msg = None
-        print(out_msg2)
-        if not out_msg2.startswith("cannot"):
+        # print(out_msg2)
+        if "cannot" not in out_msg2:
             f = open(self.prefix_root + dec_file, "r")
             decrypted_msg = f.read()
             f.close()
+            subprocess.run(["rm " + self.prefix_root + dec_file,], shell=True)
 
         subprocess.run(["rm " + self.prefix_root + pk_file + " " \
-                                + self.prefix_root + cipher_file + " " \
-                                + self.prefix_root + dec_file,], shell=True)
+                                + self.prefix_root + cipher_file,], shell=True)
+        
         return decrypted_msg
