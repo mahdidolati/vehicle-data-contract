@@ -8,11 +8,8 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 contract VehicleContract is Ownable {    
     uint256 minimumUSD = 50;
     mapping(address => uint256) public balances;
-    struct Client {
-        address client;
-        string data_adr;
-    }
-    mapping(bytes32 => Client) requests;
+    address[] client_addresses;
+    string[] client_requested;
     mapping(bytes32 => bool) request_status;
     AggregatorV3Interface public priceFeed;
 
@@ -48,8 +45,20 @@ contract VehicleContract is Ownable {
 
     function requestAccess(string memory data_adr) public {
         bytes32 k = keccak256(abi.encodePacked(msg.sender, data_adr));
-        requests[k] = Client(msg.sender, data_adr);
+        client_addresses.push(msg.sender);
+        client_requested.push(data_adr);
         request_status[k] = false;
+    }
+
+    function getRequests() public returns (address[] memory, string[] memory) {
+        return (client_addresses, client_requested);
+    }
+
+    function grantAccess(uint256 index) public {
+        address new_adr = client_addresses[index];
+        string memory new_str = client_requested[index];
+        bytes32 k = keccak256(abi.encodePacked(new_adr, new_str));
+        request_status[k] = true;
     }
 
     function getEthPrice() public view returns (uint256) {

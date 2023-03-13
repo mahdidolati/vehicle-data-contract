@@ -23,22 +23,15 @@ def run():
 
     print(f"Car: {car.account.balance()} -- Insurance: {insurance.account.balance()}")
 
+    car.use()
+
     researcher_account = get_account(3)
     researcher = Researcher(researcher_account)
     researcher.request(car, car.location_address[-1])
 
-    # ID = insurance.account.address
-    # data_adr = f"adr-{time()}"
-    # data_val = bytes(f"new data-{time()}", "utf-8")
-    # data_val = Const.ttp.id_enc(data_val, ID)
-    
-    # Const.db.save(data_adr, data_val)
-
-    # cipher_text = Const.db.retrieve(data_adr)
-    # data_val2 = Const.ttp.id_dec(cipher_text, ID)
-    # print(data_val2)
-
-    # Const.db.close()
+    car.review()
+    researcher.deposit(car)
+    researcher.read(car, car.location_address[-1] + "_i")
 
     Const.db.close()
 
