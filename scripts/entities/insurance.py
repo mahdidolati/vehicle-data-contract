@@ -8,7 +8,7 @@ class Insurance:
 
     def read(self, car, item_address):
         cipher_text = Const.db.retrieve(self, car, item_address)
-        r2 = Const.ttp.att_dec(cipher_text, "insurance")
+        r2 = Const.ttp.att_dec(cipher_text, ["INSURANCE",])
         print(f"The data received from db is {r2}")
 
     def deposit(self, car):

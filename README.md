@@ -22,6 +22,7 @@ sudo make test
 sudo make install
 source brw/bin/activate
 pip install eth-brownie  
+pip install pyparsing==2.4.2
 sudo apt install nodejs npm
 npm install -g ganache-cli 
 brownie networks add Ethereum glocal host=http://127.0.0.1:7545 chainid=5777

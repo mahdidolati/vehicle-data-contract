@@ -1,5 +1,5 @@
 from scripts.cryptography.identity_crypto import IdCrypto
-from scripts.cryptography.attribute_crypto import AttributeCrypto
+from scripts.cryptography.attribute_crypto2 import AttributeCrypto
 
 
 class ThirdParty:
