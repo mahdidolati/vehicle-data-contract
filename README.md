@@ -58,3 +58,5 @@ rm -rf build; brownie run scripts/main.py --network glocal
 
 [7] https://stackoverflow.com/questions/43251642/how-to-serialize-store-the-ciphertext-encrypted-by-hybrid-cpabe-bsw07-in-charm
 
+[8] https://groups.google.com/g/charm-crypto/c/uUCqG7LtvJ4
+

@@ -1,5 +1,5 @@
 from scripts.constants import Const
-from brownie import SimpleStorage
+from brownie import VehicleContract
 from time import time
 
 
@@ -11,7 +11,7 @@ class Car:
         self.location_address = []
 
     def deploy(self, price_feed_address):
-        self.contract = SimpleStorage.deploy(price_feed_address, { "from" : self.account })
+        self.contract = VehicleContract.deploy(price_feed_address, { "from" : self.account })
         # print(f"Contract deployed at {self.contract}")
         # print(f"{self.account.address} used {self.account.gas_used}")        
 

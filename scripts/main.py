@@ -1,5 +1,6 @@
 from scripts.entities.car import Car
 from scripts.entities.insurance import Insurance
+from scripts.entities.researcher import Researcher
 from brownie import accounts, MockV3Aggregator
 from scripts.constants import Const
 from time import time
@@ -21,6 +22,10 @@ def run():
     insurance.read(car, car.location_address[-1])
 
     print(f"Car: {car.account.balance()} -- Insurance: {insurance.account.balance()}")
+
+    researcher_account = get_account(3)
+    researcher = Researcher(researcher_account)
+    researcher.request(car, car.location_address[-1])
 
     # ID = insurance.account.address
     # data_adr = f"adr-{time()}"

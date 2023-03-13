@@ -5,9 +5,15 @@ import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
 
-contract SimpleStorage is Ownable {    
+contract VehicleContract is Ownable {    
     uint256 minimumUSD = 50;
     mapping(address => uint256) public balances;
+    struct Client {
+        address client;
+        string data_adr;
+    }
+    mapping(bytes32 => Client) requests;
+    mapping(bytes32 => bool) request_status;
     AggregatorV3Interface public priceFeed;
 
     constructor(address _priceFeed) public {
@@ -38,6 +44,12 @@ contract SimpleStorage is Ownable {
 
     function withdraw() public payable onlyOwner {
         payable(msg.sender).transfer(address(this).balance);
+    }
+
+    function requestAccess(string memory data_adr) public {
+        bytes32 k = keccak256(abi.encodePacked(msg.sender, data_adr));
+        requests[k] = Client(msg.sender, data_adr);
+        request_status[k] = false;
     }
 
     function getEthPrice() public view returns (uint256) {
