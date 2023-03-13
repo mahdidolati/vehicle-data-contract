@@ -24,7 +24,7 @@ class AttributeCrypto:
         f.flush()
         f.close()
         while(os.path.isfile(self.prefix_root + in_file) == False):
-            sleep(0.001)
+            sleep(0.01)
         enc_cmd_c = enc_cmd + " " + self.prefix_root + self.ttp_public + " " \
                         + self.prefix_root + in_file + \
                         " -k -o " + self.prefix_root + out_file + \
@@ -34,7 +34,7 @@ class AttributeCrypto:
         # print("the commandline is {}".format(proc.args))
         # print(str(proc.communicate()))
         while(os.path.isfile(self.prefix_root + out_file) == False):
-            sleep(0.001)
+            sleep(0.01)
         # print(self.prefix_root + out_file)
         f = open(self.prefix_root + out_file, "rb")
         cipher_text = f.read()
@@ -53,7 +53,7 @@ class AttributeCrypto:
         subprocess.run([pk_cmd,], shell=True)
         
         while(os.path.isfile(self.prefix_root + pk_file) == False):
-            sleep(0.001)
+            sleep(0.01)
         cipher_file = "ttp_cipher_" + str(time())
         dec_file = cipher_file + "_dec"
         f = open(self.prefix_root + cipher_file, "wb")
@@ -73,7 +73,7 @@ class AttributeCrypto:
             out_msg2 = str(out_msg.communicate())
             if os.path.isfile(self.prefix_root + dec_file) or "cannot" in out_msg2:
                 break
-            sleep(0.001)
+            sleep(0.01)
 
         decrypted_msg = None
         # print(out_msg2)

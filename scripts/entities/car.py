@@ -12,8 +12,10 @@ class Car:
         self.speed = [0]
         self.milage = 0
 
-    def deploy(self):
-        self.contract = SimpleStorage.deploy({ "from" : self.account })
+    def deploy(self, price_feed_address):
+        self.contract = SimpleStorage.deploy(price_feed_address, { "from" : self.account })
+        ret = self.contract.getEthPrice.call()
+        print("----", ret)
         # print(f"Contract deployed at {self.contract}")
         # print(f"{self.account.address} used {self.account.gas_used}")        
 

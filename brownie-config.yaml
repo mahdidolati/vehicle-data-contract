@@ -1,2 +1,12 @@
+dependencies:
+  # - <organization/repo>@<version>
+  - smartcontractkit/chainlink-brownie-contracts@1.2.0
+compiler:
+  solc:
+    remappings:
+      - "@chainlink=smartcontractkit/chainlink-brownie-contracts@1.2.0"
+dotenv: .env
 networks:
   default: glocal 
+  glocal:
+    verify: False

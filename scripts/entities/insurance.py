@@ -18,8 +18,10 @@ class Insurance:
 
     def pay(self, car):
         contract = Contract(car.contract.address)
+        fee = contract.getFee.call()
+        print(f"Fee of accessing data is: {fee}")
         tx_receipt = contract.fund({    
             "from": self.account,
-            "value": 50735 * 50
+            "value": fee
         })
         tx_receipt.wait(1)
