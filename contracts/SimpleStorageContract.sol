@@ -2,41 +2,24 @@
 pragma solidity ^0.8.7;
 
 import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
 
 
-contract SimpleStorage {    
-    uint256 favoriteNumber;
-    address owner;
-    address[] public funders;
+contract SimpleStorage is Ownable {    
+    uint256 minimumUSD = 50;
+    mapping(address => uint256) public balances;
     AggregatorV3Interface public priceFeed;
 
     constructor(address _priceFeed) public {
         priceFeed = AggregatorV3Interface(_priceFeed);
-        owner = msg.sender;
     }
 
-    struct People {
-        uint256 favoriteNumber;
-        string name;
-    }
-
-    People[] public people;
-    mapping(string => uint256) public nameToFavoriteNumber;
-
-    receive() external payable {
-        (bool s,) = payable(owner).call{value: msg.value}(new bytes(0));
-        require(s);
-    }
-
-    function fund() public payable {
-        uint256 minimumUSD = 50;
+    function deposit() public payable {
         require(
             (minimumUSD * 1e18) / getEthPrice() <= msg.value,
             "You need to spend more ETH mate!"
         );
-        (bool success, ) = owner.call{value: msg.value}("");
-        require(success, "Transfer failed.");
-        funders.push(msg.sender);
+        balances[msg.sender] = balances[msg.sender] + msg.value;
     }
 
     function getFee() public view returns (uint256) {
@@ -44,17 +27,17 @@ contract SimpleStorage {
         return (minimumUSD * 1e18) / getEthPrice();
     }
 
-    function store(uint256 _favoriteNumber) public {
-        favoriteNumber = _favoriteNumber;
+    function charge(address _buyer) public {
+        uint256 ethPrice = getEthPrice();
+        require(
+            (minimumUSD * 1e18) / ethPrice <= balances[_buyer],
+            "You need to deposit more ETH mate!"
+        );
+        balances[_buyer] = balances[_buyer] - ((minimumUSD * 1e18) / ethPrice);
     }
 
-    function retrieve() public view returns (uint256) {
-        return favoriteNumber;
-    }
-
-    function addPerson(string memory _name, uint256 _favoriteNumber) public {
-        people.push(People(_favoriteNumber, _name));
-        nameToFavoriteNumber[_name] = _favoriteNumber;
+    function withdraw() public payable onlyOwner {
+        payable(msg.sender).transfer(address(this).balance);
     }
 
     function getEthPrice() public view returns (uint256) {

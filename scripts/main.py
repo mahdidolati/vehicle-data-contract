@@ -3,11 +3,7 @@ from scripts.entities.insurance import Insurance
 from brownie import accounts, MockV3Aggregator
 from scripts.constants import Const
 from time import time
-from scripts.helpful_scripts import (
-    get_account,
-    deploy_mocks,
-    LOCAL_BLOCKCHAIN_ENVIRONMENTS,
-)
+from scripts.helpful_scripts import get_account, deploy_mocks
 
 
 def run():
@@ -21,8 +17,8 @@ def run():
     
     insurance_account = get_account(1)
     insurance = Insurance(insurance_account)
-    insurance.read(car)
-    insurance.pay(car)
+    insurance.deposit(car)
+    insurance.read(car, car.location_address[-1])
 
     print(f"Car: {car.account.balance()} -- Insurance: {insurance.account.balance()}")
 
@@ -38,17 +34,6 @@ def run():
     # print(data_val2)
 
     # Const.db.close()
-
-    data_val = Const.ttp.att_enc("hello", "system_admin or market_group")
-    data_adr = f"adr-{time()}"
-    Const.db.save(data_adr, data_val)
-    
-    cipher_text = Const.db.retrieve(data_adr)
-    r2 = Const.ttp.att_dec(cipher_text, "system_admin")
-    print(r2)
-    
-    r3 = Const.ttp.att_dec(cipher_text, "developer")
-    print(r3)
 
     Const.db.close()
 

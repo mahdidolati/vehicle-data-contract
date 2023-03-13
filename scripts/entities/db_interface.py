@@ -1,8 +1,10 @@
 import sqlite3
+from brownie import Contract
 
 
 class DbInterface:
-    def __init__(self):
+    def __init__(self, account):
+        self.account = account
         self.sqliteConnection = sqlite3.connect("database.db")
         self.cursor = self.sqliteConnection.cursor()
         print(f"Database created and Suncessfully connected to SQLite")
@@ -13,7 +15,13 @@ class DbInterface:
         self.sqliteConnection.commit()
         print(f"Inserted {count.rowcount}.")
 
-    def retrieve(self, k):
+    def retrieve(self, buyer, car, k):
+        contract = Contract(car.contract.address)
+        tx_receipt = contract.charge(buyer.account.address, {    
+            "from": self.account
+        })
+        tx_receipt.wait(1)
+
         select_query = """SELECT * FROM vehicle_data WHERE DATA_ADR = ? LIMIt 1"""
         self.cursor.execute(select_query, (k,))
         rows = self.cursor.fetchall()

@@ -7,29 +7,22 @@ class Car:
     def __init__(self, account):
         self.account = account
         self.contract = None
-        self.contract_address = None
-        self.location = [0]
-        self.speed = [0]
-        self.milage = 0
+        self.location = 0
+        self.location_address = []
 
     def deploy(self, price_feed_address):
         self.contract = SimpleStorage.deploy(price_feed_address, { "from" : self.account })
-        ret = self.contract.getEthPrice.call()
-        print("----", ret)
         # print(f"Contract deployed at {self.contract}")
         # print(f"{self.account.address} used {self.account.gas_used}")        
 
     def use(self):
-        self.location.append((self.location[-1] + 1) % 20)
-        self.speed.append((self.speed[-1] + 1) % 100)
-        self.milage = self.milage + 1
+        self.location = (self.location + 1) % 20
+        self.location_address.append("location" + str(time()))
 
-        tx_receipt = self.contract.store(self.milage, { "from" : self.account }) 
-        tx_receipt.wait(1)
-        print(f"{self.account.address} used {self.account.gas_used}")        
+        data_adr = self.location_address[-1]
+        data_val = Const.ttp.att_enc(str(self.location), "police or insurance")
+        Const.db.save(data_adr, data_val)        
         
     def read(self):
-        retrieved_number = self.contract.retrieve.call() 
-        print(f"Number Retrieved : {retrieved_number}")
-        print(f"Account 0: {self.account.address} used {self.account.gas_used}")
-        print(f"Account 0: {self.account.address} balance {self.account.balance()}")
+        print(f"ETH price is: {self.contract.getEthPrice.call()}")
+        print(f"{self.account.address} used {self.account.gas_used} has {self.account.balance()}")
