@@ -9,6 +9,7 @@ class Car:
         self.contract = None
         self.location = []
         self.location_address = []
+        self.location_id = []
         self.location_map = {}
 
     def deploy(self, price_feed_address):
@@ -46,11 +47,17 @@ class Car:
             self.location.append(1)
         else:
             self.location.append((self.location[-1] + 1) % 20)
+        data_id = "location" + str(time())        
         data_val = Const.ttp.att_enc(str(self.location[-1]), "police or insurance")
         data_adr = Const.ipfs.save(data_val)
         print("Saved into IPFS. Hash is: {}".format(data_adr))
         self.location_map[data_adr] = str(self.location[-1])
         self.location_address.append(data_adr)
+        tx_receipt = self.contract.add_data_adr(data_id, data_adr, {
+            "from" : self.account
+        })
+        tx_receipt.wait(1)
+        self.location_id.append(data_id)
         
     def read(self):
         print("CAR", f"ETH price is: {self.contract.getEthPrice.call()}")

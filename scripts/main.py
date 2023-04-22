@@ -20,19 +20,16 @@ def run():
     
     insurance_account = get_account(1)
     insurance = Insurance(insurance_account)
-    insurance.deposit(car)
-    insurance.read_ipfs(car.location_address[-1])
+    # insurance.deposit(car)
+    insurance.read_ipfs(car, car.location_id[-1])
     # insurance.read(car, car.location_address[-1])
 
     print(f"Car: {car.account.balance()} -- Insurance: {insurance.account.balance()}")
 
-    return
-    car.use()
-
     researcher_account = get_account(3)
     researcher = Researcher(researcher_account)
 
-    researcher.request(car, car.location_address[-1])
+    researcher.request(car, car.location_id[-1])
 
     car.review()
     researcher.deposit(car)

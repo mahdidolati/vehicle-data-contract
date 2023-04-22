@@ -10,11 +10,20 @@ contract VehicleContract is Ownable {
     mapping(address => uint256) public balances;
     address[] client_addresses;
     string[] client_requested;
+    mapping(string => string) private ipfs_hashes;
     mapping(bytes32 => bool) request_status;
     AggregatorV3Interface public priceFeed;
 
     constructor(address _priceFeed) public {
         priceFeed = AggregatorV3Interface(_priceFeed);
+    }
+
+    function add_data_adr(string memory data_id, string memory data_adr) public {
+        ipfs_hashes[data_id] = data_adr;
+    }
+
+    function get_data_adr(string memory data_id) public view returns (string memory) {
+        return ipfs_hashes[data_id];
     }
 
     function deposit() public payable {
