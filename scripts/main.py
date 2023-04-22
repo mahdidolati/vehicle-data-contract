@@ -39,6 +39,7 @@ def run():
 
     print(f"Car: {car.account.balance()} -- Researcher: {researcher.account.balance()}")
 
+    Const.logger.print()
     Const.db.close()
 
 
