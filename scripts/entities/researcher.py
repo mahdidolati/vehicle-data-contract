@@ -45,14 +45,20 @@ class Researcher:
 
     def request_and_pay(self, car, item_id):
         contract = Contract(car.contract.address)
+        t1 = time()
         fee = contract.getFee.call()
+        t2 = time()
+        Const.logger.add_item("get_fee", t2 - t1)
         Const.logger.add_item("researcher_gas", self.account.gas_used)
         print("RESEARCHER", f"Fee of accessing data is: {fee}")
+        t1 = time()
         tx_receipt = contract.requestAccessPay(item_id, {
             "from": self.account,
             "value": fee
         })
         tx_receipt.wait(1)
+        t2 = time()
+        Const.logger.add_item("request", t2 - t1)
         Const.logger.add_item("researcher_gas", self.account.gas_used)
         print("RESEARCHER", f"{self.account.address} used {self.account.gas_used}")
 
