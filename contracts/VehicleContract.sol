@@ -59,6 +59,17 @@ contract VehicleContract is Ownable {
         request_status[k] = false;
     }
 
+    function requestAccessPay(string memory data_adr) public payable {
+        require(
+            (minimumUSD * 1e18) / getEthPrice() <= msg.value,
+            "You need to spend more ETH mate!"
+        );
+        bytes32 k = keccak256(abi.encodePacked(msg.sender, data_adr));
+        client_addresses.push(msg.sender);
+        client_requested.push(data_adr);
+        request_status[k] = false;
+    }
+
     function getRequests() public returns (address[] memory, string[] memory) {
         return (client_addresses, client_requested);
     }

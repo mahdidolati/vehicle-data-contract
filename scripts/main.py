@@ -26,14 +26,18 @@ def run():
 
     print(f"Car: {car.account.balance()} -- Insurance: {insurance.account.balance()}")
 
+    car.use_ipfs()
+
     researcher_account = get_account(3)
     researcher = Researcher(researcher_account)
 
-    researcher.request(car, car.location_id[-1])
+    researcher.request_and_pay(car, car.location_id[-1])
+    car.review_ipfs()
 
-    car.review()
-    researcher.deposit(car)
-    researcher.read(car, car.location_address[-1] + "_i")
+    # researcher.deposit(car)
+    researcher.read_ipfs(car, car.location_id[-1] + "_i")
+
+    print(f"Car: {car.account.balance()} -- Researcher: {researcher.account.balance()}")
 
     Const.db.close()
 

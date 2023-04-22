@@ -11,6 +11,7 @@ class Car:
         self.location_address = []
         self.location_id = []
         self.location_map = {}
+        self.location_id_map = {}
 
     def deploy(self, price_feed_address):
         self.contract = VehicleContract.deploy(price_feed_address, { "from" : self.account })
@@ -29,6 +30,19 @@ class Car:
             data_val = bytes(self.location_map[strs[i]], "utf-8")
             data_val = Const.ttp.id_enc(data_val, addrs[i])
             Const.db.save(strs[i] + "_i", data_val)
+
+    def review_ipfs(self):
+        addrs, strs = self.contract.getRequests.call()
+        for i in range(len(addrs)):
+            data_id = strs[i]
+            print("CAR", "New Request", addrs[i], "for", data_id)
+            data_val = bytes(self.location_id_map[data_id], "utf-8")
+            data_val = Const.ttp.id_enc(data_val, addrs[i])
+            data_adr = Const.ipfs.save(data_val)
+            tx_receipt = self.contract.add_data_adr(data_id + "_i", data_adr, {
+                "from" : self.account
+            })
+            tx_receipt.wait(1)    
 
     def use(self):
         if len(self.location) == 0:
@@ -52,6 +66,7 @@ class Car:
         data_adr = Const.ipfs.save(data_val)
         print("Saved into IPFS. Hash is: {}".format(data_adr))
         self.location_map[data_adr] = str(self.location[-1])
+        self.location_id_map[data_id] = str(self.location[-1])
         self.location_address.append(data_adr)
         tx_receipt = self.contract.add_data_adr(data_id, data_adr, {
             "from" : self.account
