@@ -11,6 +11,11 @@ class Insurance:
         r2 = Const.ttp.att_dec(cipher_text, ["INSURANCE",])
         print("INSURANCE", f"The data received from db is {r2}")
 
+    def read_ipfs(self, item_address):
+        cipher_text = Const.ipfs.retrieve(item_address)
+        r2 = Const.ttp.att_dec(cipher_text, ["INSURANCE",])
+        print("INSURANCE", f"The data received from db is {r2}")
+
     def deposit(self, car):
         contract = Contract(car.contract.address)
         fee = contract.getFee.call()

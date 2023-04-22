@@ -39,7 +39,18 @@ class Car:
         data_adr = self.location_address[-1]
         data_val = Const.ttp.att_enc(str(self.location[-1]), "police or insurance")
         self.location_map[data_adr] = str(self.location[-1])
-        Const.db.save(data_adr, data_val)        
+        Const.db.save(data_adr, data_val)
+
+    def use_ipfs(self):
+        if len(self.location) == 0:
+            self.location.append(1)
+        else:
+            self.location.append((self.location[-1] + 1) % 20)
+        data_val = Const.ttp.att_enc(str(self.location[-1]), "police or insurance")
+        data_adr = Const.ipfs.save(data_val)
+        print("Saved into IPFS. Hash is: {}".format(data_adr))
+        self.location_map[data_adr] = str(self.location[-1])
+        self.location_address.append(data_adr)
         
     def read(self):
         print("CAR", f"ETH price is: {self.contract.getEthPrice.call()}")

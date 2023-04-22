@@ -26,7 +26,6 @@ pip install pyparsing==2.4.2
 sudo apt install nodejs npm
 npm install -g ganache-cli 
 brownie networks add Ethereum glocal host=http://127.0.0.1:7545 chainid=5777
-sudo ganache-cli --port 7545 --gasLimit 12000000 --accounts 10 --hardfork istanbul --mnemonic brownie --networkId glocal
 ```
 
 ```
@@ -38,8 +37,17 @@ sqlite> CREATE TABLE vehicle_data(DATA_ADR text NOT NULL, DATA_VAL BLOB NOT NULL
 ```
 
 # Run
+Start the blockchain and the IPFS daemon:
+```
+sudo ganache-cli --port 7545 --gasLimit 12000000 --accounts 10 --hardfork istanbul --mnemonic brownie --networkId glocal
+IPFS_PATH=~/.ipfs ipfs daemon & 
+```
+Activate the Python environment:
 ```
 source brw/bin/activate
+```
+Run the program:
+```
 rm -rf build; brownie run scripts/main.py --network glocal
 ```
 
@@ -59,4 +67,10 @@ rm -rf build; brownie run scripts/main.py --network glocal
 [7] https://stackoverflow.com/questions/43251642/how-to-serialize-store-the-ciphertext-encrypted-by-hybrid-cpabe-bsw07-in-charm
 
 [8] https://groups.google.com/g/charm-crypto/c/uUCqG7LtvJ4
+
+[9] https://www.geekdecoder.com/setting-up-a-private-ipfs-network-with-ipfs-and-ipfs-cluster/
+
+[10] https://medium.com/@s_van_laar/deploy-a-private-ipfs-network-on-ubuntu-in-5-steps-5aad95f7261b
+
+
 
