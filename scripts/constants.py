@@ -8,3 +8,4 @@ class Const:
     ipfs = IpfsInterface()
     db = DbInterface(get_account(2))
     ttp = ThirdParty()
+    CryptographyTime = "CryptographyTime"

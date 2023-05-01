@@ -49,7 +49,7 @@ source brw/bin/activate
 ```
 Run the program:
 ```
-rm -rf build; brownie run scripts/main.py main 2 2 --network glocal
+./run_experiment.sh
 ```
 
 # References:
