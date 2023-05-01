@@ -4,7 +4,7 @@ from scripts.entities.researcher import Researcher
 from brownie import accounts, MockV3Aggregator
 from scripts.constants import Const
 from time import time
-from scripts.helpful_scripts import get_account, deploy_mocks
+from scripts.util.helpful_scripts import get_account, deploy_mocks
 
 
 def run():

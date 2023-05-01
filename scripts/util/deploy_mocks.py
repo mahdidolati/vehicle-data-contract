@@ -2,7 +2,7 @@ from brownie import (
     MockV3Aggregator,
     network,
 )
-from scripts.helpful_scripts import (
+from scripts.util.helpful_scripts import (
     get_account,
 )
 

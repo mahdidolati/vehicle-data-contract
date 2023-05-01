@@ -1,8 +1,8 @@
-from scripts.entities.db_interface import DbInterface
+from scripts.db.db_interface import DbInterface
+from scripts.db.ipfs_interface import IpfsInterface
 from scripts.cryptography.ttp_util import ThirdParty
-from scripts.helpful_scripts import get_account
-from scripts.entities.ipfs_interface import IpfsInterface
-from scripts.entities.my_logger import MyLogger
+from scripts.util.helpful_scripts import get_account
+from scripts.util.my_logger import MyLogger
 
 
 class Const:

@@ -6,10 +6,11 @@ from time import time
 class Insurance:
     def __init__(self, account):
         self.account = account
+        self.crypto_atts = ["INSURANCE", "INSPECTING", "INTERNATIONAL", "PUBLIC",]
 
     def read(self, car, item_address):
         cipher_text = Const.db.retrieve(self, car, item_address)
-        r2 = Const.ttp.att_dec(cipher_text, ["INSURANCE",])
+        r2 = Const.ttp.att_dec(cipher_text, self.crypto_atts)
         print("INSURANCE", f"The data received from db is {r2}")
 
     def read_ipfs(self, car, item_id):
@@ -26,7 +27,7 @@ class Insurance:
         t2 = time()
         Const.logger.add_item("ipfs_read_att", t2 - t1)
         t1 = time()
-        r2 = Const.ttp.att_dec(cipher_text, ["INSURANCE",])
+        r2 = Const.ttp.att_dec(cipher_text, self.crypto_atts)
         t2 = time()
         Const.logger.add_item("att_dec", t2 - t1)
         print("INSURANCE", f"The data received from db is {r2}")
