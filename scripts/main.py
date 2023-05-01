@@ -13,30 +13,28 @@ def run():
 
     car_account = get_account(0)
     car = Car(car_account)
+    researcher_account = get_account(3)
+    researcher = Researcher(researcher_account)
+    insurance_account = get_account(1)
+    insurance = Insurance(insurance_account)
+
     car.deploy(price_feed_address)
 
     car.use_ipfs()
-    # car.use()
-    
-    insurance_account = get_account(1)
-    insurance = Insurance(insurance_account)
-    # insurance.deposit(car)
+    car.use_ipfs()    
     insurance.read_ipfs(car, car.location_id[-1])
-    # insurance.read(car, car.location_address[-1])
-
     print(f"Car: {car.account.balance()} -- Insurance: {insurance.account.balance()}")
 
     car.use_ipfs()
-
-    researcher_account = get_account(3)
-    researcher = Researcher(researcher_account)
-
     researcher.request_and_pay(car, car.location_id[-1])
     car.review_ipfs()
-
-    # researcher.deposit(car)
     researcher.read_ipfs(car, car.location_id[-1] + "_i")
+    print(f"Car: {car.account.balance()} -- Researcher: {researcher.account.balance()}")
 
+    car.use_ipfs()
+    researcher.request_and_pay(car, car.location_id[-1])
+    car.review_ipfs()
+    researcher.read_ipfs(car, car.location_id[-1] + "_i")
     print(f"Car: {car.account.balance()} -- Researcher: {researcher.account.balance()}")
 
     Const.logger.print()

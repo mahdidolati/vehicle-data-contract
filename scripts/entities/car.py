@@ -24,19 +24,6 @@ class Car:
         # print(f"Contract deployed at {self.contract}")
         # print(f"{self.account.address} used {self.account.gas_used}")    
 
-    def review(self):
-        addrs, strs = self.contract.getRequests.call()
-        for i in range(len(addrs)):
-            print("CAR", "New Request", addrs[i], "for", strs[i])
-            tx_receipt = self.contract.grantAccess(i, {
-                "from" : self.account
-            })
-            tx_receipt.wait(1)
-            print("CAR", f"{self.account.address} used {self.account.gas_used}")
-            data_val = bytes(self.location_map[strs[i]], "utf-8")
-            data_val = Const.ttp.id_enc(data_val, addrs[i])
-            Const.db.save(strs[i] + "_i", data_val)
-
     def review_ipfs(self):
         addrs, strs = self.contract.getRequests.call()
         Const.logger.add_item("car_gas_id", self.account.gas_used)
@@ -61,18 +48,6 @@ class Car:
             Const.logger.add_item("add_adr_id", t2 - t1)
             Const.logger.add_item("car_gas_id", self.account.gas_used)
 
-    def use(self):
-        if len(self.location) == 0:
-            self.location.append(1)
-        else:
-            self.location.append((self.location[-1] + 1) % 20)
-        self.location_address.append("location" + str(time()))
-
-        data_adr = self.location_address[-1]
-        data_val = Const.ttp.att_enc(str(self.location[-1]), "police or insurance")
-        self.location_map[data_adr] = str(self.location[-1])
-        Const.db.save(data_adr, data_val)
-
     def get_random_loc(self):
         # if self.first_loc:
         #     self.first_loc = False
@@ -90,7 +65,7 @@ class Car:
         policy1 = "(insurance and (inspecting or renewing) and (international or national) and (public or private))"
         policy2 = "(police and (searching or checking) and (local or national) and (permit or law))"
         policy3 = "(court and (investigating or enforcing) and (region or state) and (starting or ending))"
-        policy4 = "(customs and (import or export) and (verifying or statistics) and (tax or tarif))"
+        policy4 = "(customs and (import or export) and (verifying or statistics) and (tax or tariff))"
         access_policy = "{} or {} or {} or {}".format(policy1, policy2, policy3, policy4)     
         t1 = time()
         data_val = Const.ttp.att_enc(str(self.location[-1]), access_policy)

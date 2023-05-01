@@ -10,4 +10,3 @@ class Const:
     db = DbInterface(get_account(2))
     ttp = ThirdParty()
     logger = MyLogger()
-
