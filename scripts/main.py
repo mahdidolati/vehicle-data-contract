@@ -41,5 +41,35 @@ def run():
     Const.db.close()
 
 
-def main():
-    run()
+def main(policy_len_str, clause_len_str):
+    policy_len = int(policy_len_str)
+    clause_len = int(clause_len_str)
+    policy_clauses = [
+        ["insurance", "(inspecting or renewing)", "(international or national)", "(public or private)"],
+        ["police", "(searching or checking)", "(local or national)", "(permit or law)"],
+        ["court", "(investigating or enforcing)", "(region or state)", "(starting or ending)"],
+        ["customs", "(import or export)", "(verifying or statistics)", "(tax or tariff)"]
+    ]
+    attributes = {
+        "insurance": ["insurance", "inspecting", "international", "public"],
+        "police": ["police", "searching", "local", "permit"],
+        "court": ["court", "investigating", "region", "starting"],
+        "customs": ["customs", "import", "verifying", "tax"]
+    }
+    if policy_len <= len(policy_clauses) and clause_len <= len(policy_clauses[0]):
+        for i in range(policy_len):
+            clause = policy_clauses[i][0]
+            for j in range(1, clause_len):
+                clause = clause + " and " + policy_clauses[i][j]
+            clause = "(" + clause + ")"
+            if i == 0:
+                access_policy = clause
+            else:
+                access_policy = access_policy + " or " + clause
+        Const.access_policy = access_policy
+        print(Const.access_policy)
+        Const.attributes = dict()
+        for k in attributes:
+            Const.attributes[k] = attributes[k][0:clause_len]
+            Const.attributes[k] = [s.upper() for s in Const.attributes[k]]
+        run()

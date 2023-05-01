@@ -62,13 +62,8 @@ class Car:
         rloc = self.get_random_loc()
         self.location.append(rloc)
         data_id = "location" + str(time())   
-        policy1 = "(insurance and (inspecting or renewing) and (international or national) and (public or private))"
-        policy2 = "(police and (searching or checking) and (local or national) and (permit or law))"
-        policy3 = "(court and (investigating or enforcing) and (region or state) and (starting or ending))"
-        policy4 = "(customs and (import or export) and (verifying or statistics) and (tax or tariff))"
-        access_policy = "{} or {} or {} or {}".format(policy1, policy2, policy3, policy4)     
         t1 = time()
-        data_val = Const.ttp.att_enc(str(self.location[-1]), access_policy)
+        data_val = Const.ttp.att_enc(str(self.location[-1]), Const.access_policy)
         t2 = time()
         Const.logger.add_item("att_enc", t2 - t1)
         t1 = time()

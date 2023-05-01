@@ -6,7 +6,7 @@ from time import time
 class Insurance:
     def __init__(self, account):
         self.account = account
-        self.crypto_atts = ["INSURANCE", "INSPECTING", "INTERNATIONAL", "PUBLIC",]
+        self.crypto_atts = Const.attributes["insurance"]
 
     def read_ipfs(self, car, item_id):
         contract = Contract(car.contract.address)
