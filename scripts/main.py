@@ -5,6 +5,7 @@ from brownie import accounts, MockV3Aggregator
 from scripts.constants import Const
 from time import time
 from scripts.util.helpful_scripts import get_account, deploy_mocks
+from scripts.util.my_logger import MyLogger
 
 
 def run():
@@ -41,7 +42,8 @@ def run():
     Const.db.close()
 
 
-def main(policy_len_str, clause_len_str):
+def main(itr_num_str, policy_len_str, clause_len_str):
+    itr_num = int(itr_num_str)
     policy_len = int(policy_len_str)
     clause_len = int(clause_len_str)
     policy_clauses = [
@@ -72,4 +74,5 @@ def main(policy_len_str, clause_len_str):
         for k in attributes:
             Const.attributes[k] = attributes[k][0:clause_len]
             Const.attributes[k] = [s.upper() for s in Const.attributes[k]]
+        Const.logger = MyLogger("{}-{}-{}".format(itr_num, policy_len, clause_len))
         run()
