@@ -62,12 +62,13 @@ def main(itr_num_str, policy_len_str, clause_len_str):
         "customs2": ["customs2", "import2", "verifying2", "tax2", "list2", "nine3"]
     }
     if policy_len <= len(policy_clauses) and clause_len <= len(policy_clauses[0]):
-        for i in range(policy_len):
+        access_policy = None
+        for i in reversed(range(policy_len)):
             clause = policy_clauses[i][0]
             for j in range(1, clause_len):
                 clause = clause + " and " + policy_clauses[i][j]
             clause = "(" + clause + ")"
-            if i == 0:
+            if access_policy is None:
                 access_policy = clause
             else:
                 access_policy = access_policy + " or " + clause

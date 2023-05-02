@@ -26,7 +26,7 @@ for filename in os.listdir("./reports/"):
         alg_name = line[0]
         stat_name = line[1]
         run_name = "{}-{}".format(policy_len, clause_len) 
-        if alg_name in ["Case1"]:
+        if alg_name in ["Case1"] and policy_len == 6:
             # print(line[2])
             if stat_name == "EncTime":
                 stat_collector.add_stat("Enc", Time, run_name, float(line[2]))
