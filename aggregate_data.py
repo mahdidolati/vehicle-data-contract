@@ -2,13 +2,11 @@ from statistic_collector import StatCollector, Stat
 from mahdi_plotter.plotter import Plotter
 import os
 
-EncTime = "EncTime"
-DecTime = "DecTime"
+Time = "Time"
 stats = {
-    EncTime: Stat.MEAN_MODE,
-    DecTime: Stat.MEAN_MODE
+    Time: Stat.MEAN_MODE
 }
-algs = ["Case1", "Case2"]
+algs = ["Enc", "Dec"]
 stat_collector = StatCollector(algs, stats)
 policy_lens = []
 clause_lens = []
@@ -28,18 +26,21 @@ for filename in os.listdir("./reports/"):
         alg_name = line[0]
         stat_name = line[1]
         run_name = "{}-{}".format(policy_len, clause_len) 
-        if stat_name in [EncTime, DecTime]:
+        if alg_name in ["Case1"]:
             # print(line[2])
-            stat_collector.add_stat(alg_name, stat_name, run_name, float(line[2]))
+            if stat_name == "EncTime":
+                stat_collector.add_stat("Enc", Time, run_name, float(line[2]))
+            if stat_name == "DecTime":
+                stat_collector.add_stat("Dec", Time, run_name, float(line[2]))
 
 policy_lens.sort()
-print(policy_len)
-stat_collector.write_to_file('a1.txt', policy_lens, 0, EncTime, algs, EncTime, EncTime)
+print(policy_lens)
+stat_collector.write_to_file('a1.txt', policy_lens, 0, Time, algs, "Policy Length", "Time (sec)")
 plotter = Plotter()
 plotter.grouped_bar_err_plot('a1', 'a1.pdf')
 
 clause_lens.sort()
-print(clause_len)
-stat_collector.write_to_file('a2.txt', clause_lens, 1, EncTime, algs, EncTime, EncTime)
+print(clause_lens)
+stat_collector.write_to_file('a2.txt', clause_lens, 1, Time, algs, "Caluse Number", "Time (sec)")
 plotter = Plotter()
 plotter.grouped_bar_err_plot('a2', 'a2.pdf')

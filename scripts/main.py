@@ -47,16 +47,19 @@ def main(itr_num_str, policy_len_str, clause_len_str):
     policy_len = int(policy_len_str)
     clause_len = int(clause_len_str)
     policy_clauses = [
-        ["insurance", "(inspecting or renewing)", "(international or national)", "(public or private)"],
-        ["police", "(searching or checking)", "(local or national)", "(permit or law)"],
-        ["court", "(investigating or enforcing)", "(region or state)", "(starting or ending)"],
-        ["customs", "(import or export)", "(verifying or statistics)", "(tax or tariff)"]
+        ["insurance", "(inspecting or renewing)", "(international or national)", "(public or private)", "(direct or indirect)", "(one or two)"],
+        ["police", "(searching or checking)", "(local or national)", "(permit or law)", "(english or french)", "(three or four)"],
+        ["court", "(investigating or enforcing)", "(region or state)", "(starting or ending)", "(ball or bin)", "(five or six)"],
+        ["customs", "(import or export)", "(verifying or statistics)", "(tax or tariff)", "(list or receipt)", "(seven or eight)"],
+        ["customs2", "(import2 or export2)", "(verifying2 or statistics2)", "(tax2 or tariff2)", "(list2 or receipt2)", "(nine or ten)"],
+        ["customs23", "(import23 or export23)", "(verifying23 or statistics23)", "(tax23 or tariff23)", "(list23 or receipt23)", "(nine3 or ten3)"]
     ]
     attributes = {
-        "insurance": ["insurance", "inspecting", "international", "public"],
-        "police": ["police", "searching", "local", "permit"],
-        "court": ["court", "investigating", "region", "starting"],
-        "customs": ["customs", "import", "verifying", "tax"]
+        "insurance": ["insurance", "inspecting", "international", "public", "direct", "one"],
+        "police": ["police", "searching", "local", "permit", "english", "three"],
+        "court": ["court", "investigating", "region", "starting", "ball", "five"],
+        "customs": ["customs", "import", "verifying", "tax", "list", "seven"],
+        "customs2": ["customs2", "import2", "verifying2", "tax2", "list2", "nine3"]
     }
     if policy_len <= len(policy_clauses) and clause_len <= len(policy_clauses[0]):
         for i in range(policy_len):
