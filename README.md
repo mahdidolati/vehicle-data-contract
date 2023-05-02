@@ -49,6 +49,8 @@ source brw/bin/activate
 ```
 Run the program:
 ```
+IPFS_PATH=~/.ipfs ipfs pin ls --type recursive | cut -d' ' -f1 | xargs -n1 ipfs pin rm
+IPFS_PATH=~/.ipfs ipfs repo gc
 ./run_experiment.sh
 ```
 
