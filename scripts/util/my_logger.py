@@ -17,6 +17,6 @@ class MyLogger:
         f = open("./reports/{}".format(self.runname), "+w")
         for c in self.items:
             for k in self.items[c]:
-                # print(k, self.items[k])
-                f.write(str(c) + " " + str(k) + " " + str(np.mean(self.items[k])) + "\n")
+                print(c, k, np.mean(self.items[c][k]))
+                f.write(str(c) + " " + str(k) + " " + str(np.mean(self.items[c][k])) + "\n")
         f.close()
