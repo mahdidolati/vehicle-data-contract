@@ -42,7 +42,7 @@ gas_stats = {
 }
 gas_collector = StatCollector(gas_algs, gas_stats)
 
-contract_algs = ["DeployTime", "SetAddrTime", "GetReqTime", "GetAddrTime", "GetFeeTime", "RequestTime"]
+contract_algs = ["DeployTime", "SetAddrTime", "GetAddrTime", "RequestTime", "GetReqTime", "GetFeeTime"]
 Group = "Group"
 contract_stats = {
     Group: Stat.MEAN_MODE
