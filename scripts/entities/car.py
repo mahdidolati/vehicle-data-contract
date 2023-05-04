@@ -16,17 +16,24 @@ class Car:
         self.first_loc = True
 
     def deploy(self, price_feed_address):
+        g1 = self.account.gas_used
         t1 = time()
         self.contract = VehicleContract.deploy(price_feed_address, { "from" : self.account })
         t2 = time()
+        g2 = self.account.gas_used
         Const.logger.add_item("Case1", "DeployTime", t2 - t1)
-        Const.logger.add_item("Case1", "DeployGas", self.account.gas_used)
+        Const.logger.add_item("Case1", "DeployGas", g2 - g1)
         # print(f"Contract deployed at {self.contract}")
         # print(f"{self.account.address} used {self.account.gas_used}")    
 
     def review_ipfs(self):
+        g1 = self.account.gas_used
+        t1 = time()
         addrs, strs = self.contract.getRequests.call()
-        Const.logger.add_item("Case2", "GetReqGas", self.account.gas_used)
+        t2 = time()
+        g2 = self.account.gas_used
+        Const.logger.add_item("Case2", "GetReqTime", t2 - t1)
+        Const.logger.add_item("Case2", "GetReqGas", g2 - g1)
         for i in range(len(addrs)):
             data_id = strs[i]
             print("CAR", "New Request", addrs[i], "for", data_id)
@@ -39,14 +46,17 @@ class Car:
             data_adr = Const.ipfs.save(data_val)
             t2 = time()
             Const.logger.add_item("Case2", "IpfsSaveTime", t2 - t1)
+            Const.logger.add_item("Case2", "DataSize", len(data_val))
+            g1 = self.account.gas_used
             t1 = time()
             tx_receipt = self.contract.add_data_adr(data_id + "_i", data_adr, {
                 "from" : self.account
             })
             tx_receipt.wait(1)
             t2 = time()
+            g2 = self.account.gas_used
             Const.logger.add_item("Case2", "SetAddrTime", t2 - t1)
-            Const.logger.add_item("Case2", "SetAddrGas", self.account.gas_used)
+            Const.logger.add_item("Case2", "SetAddrGas", g2 - g1)
 
     def get_random_loc(self):
         # if self.first_loc:
@@ -67,6 +77,7 @@ class Car:
         t2 = time()
         Const.logger.add_item("Case1", "EncTime", t2 - t1)
         t1 = time()
+        Const.logger.add_item("Case1", "DataSize", len(data_val))
         data_adr = Const.ipfs.save(data_val)
         t2 = time()
         Const.logger.add_item("Case1", "IpfsSaveTime", t2 - t1)
@@ -74,14 +85,16 @@ class Car:
         self.location_map[data_adr] = str(self.location[-1])
         self.location_id_map[data_id] = str(self.location[-1])
         self.location_address.append(data_adr)
+        g1 = self.account.gas_used
         t1 = time()
         tx_receipt = self.contract.add_data_adr(data_id, data_adr, {
             "from" : self.account
         })
         tx_receipt.wait(1)
         t2 = time()
+        g2 = self.account.gas_used
         Const.logger.add_item("Case1", "SetAddrTime", t2 - t1)
-        Const.logger.add_item("Case1", "SetAddrGas", self.account.gas_used)
+        Const.logger.add_item("Case1", "SetAddrGas", g2 - g1)
         self.location_id.append(data_id)
         
     def read(self):

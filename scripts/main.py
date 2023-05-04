@@ -13,6 +13,7 @@ def run():
     price_feed_address = MockV3Aggregator[-1].address
 
     car_account = get_account(0)
+    print(car_account.address, len(car_account.address))
     car = Car(car_account)
     researcher_account = get_account(3)
     researcher = Researcher(researcher_account)

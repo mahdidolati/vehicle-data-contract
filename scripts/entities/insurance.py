@@ -10,11 +10,13 @@ class Insurance:
 
     def read_ipfs(self, car, item_id):
         contract = Contract(car.contract.address)
+        g1 = self.account.gas_used
         t1 = time()
         item_address = contract.get_data_adr.call(item_id)
         t2 = time()
+        g2 = self.account.gas_used
         Const.logger.add_item("Case1", "GetAddrTime", t2 - t1)
-        Const.logger.add_item("Case1", "GetAddrGas", self.account.gas_used)
+        Const.logger.add_item("Case1", "GetAddrGas", g2 - g1)
         print(type(item_address), len(item_address))
         print("Item Address", item_address)
         t1 = time()

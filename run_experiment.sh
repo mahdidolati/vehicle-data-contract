@@ -5,7 +5,7 @@
 # rm reports/*
 for itr_num in {1..5}
 do
-    for policy_len in {1..6}
+    for policy_len in {6..6}
     do
     for clause_len in {6..6}
         do
