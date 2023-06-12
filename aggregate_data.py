@@ -104,36 +104,36 @@ for filename in os.listdir("./reports/"):
 
 policy_lens.sort()
 print(policy_lens)
-policy_collector.write_to_file('./f/policy_collector.txt', policy_lens, 0, Time, policy_algs, "Number of Entities", "Time (sec)")
+# policy_collector.write_to_file('./f/policy_collector.txt', policy_lens, 0, Time, policy_algs, "Number of Entities", "Time (sec)")
 plotter = Plotter()
 plotter.grouped_bar_err_plot('./f/policy_collector', './f/policy_collector.pdf')
 
 clause_lens.sort()
 print(clause_lens)
-clause_collector.write_to_file('./f/clause_collector.txt', clause_lens, 0, Time, clause_algs, "Number of Attributes", "Time (sec)")
+# clause_collector.write_to_file('./f/clause_collector.txt', clause_lens, 0, Time, clause_algs, "Number of Attributes", "Time (sec)")
 plotter = Plotter()
 plotter.grouped_bar_err_plot('./f/clause_collector', './f/clause_collector.pdf')
 
-crypto_collector.write_to_file('./f/crypto_collector.txt', [0, 1], 0, Time, crypto_algs, "Cryptography Operation", "Time (sec)")
+# crypto_collector.write_to_file('./f/crypto_collector.txt', [0, 1], 0, Time, crypto_algs, "Cryptography Operation", "Time (sec)")
 plotter = Plotter()
 plotter.grouped_bar_err_plot('./f/crypto_collector', './f/crypto_collector.pdf')
 
-ipfs_collector.write_to_file('./f/ipfs_collector.txt', [0, 1], 0, Time, ipfs_algs, "IPFS Operation", "Time (sec)")
+# ipfs_collector.write_to_file('./f/ipfs_collector.txt', [0, 1], 0, Time, ipfs_algs, "IPFS Operation", "Time (sec)")
 plotter = Plotter()
 plotter.grouped_bar_err_plot('./f/ipfs_collector', './f/ipfs_collector.pdf')
 
 for ss in ["GetReqGas", "GetFeeGas", "RequestGas"]:
     gas_collector.add_stat(ss, Group, "0", 0.0)
-gas_collector.write_to_file('./f/gas_collector.txt', [0, 1], 0, Group, gas_algs, "IPFS Operation", "Time (sec)")
+# gas_collector.write_to_file('./f/gas_collector.txt', [0, 1], 0, Group, gas_algs, "IPFS Operation", "Time (sec)")
 plotter = Plotter()
 plotter.stacked_bar_err_plot('./f/gas_collector', './f/gas_collector.pdf')
 
-size_collector.write_to_file('./f/size_collector.txt', [0, 1], 0, Time, size_algs, "Encryption Method", "Size (byte)")
+# size_collector.write_to_file('./f/size_collector.txt', [0, 1], 0, Time, size_algs, "Encryption Method", "Size (byte)")
 plotter = Plotter()
 plotter.grouped_bar_err_plot('./f/size_collector', './f/size_collector.pdf')
 
 for ss in ["GetReqTime", "GetFeeTime", "RequestTime"]:
     contract_collector.add_stat(ss, Group, "0", 0.0)
-contract_collector.write_to_file('./f/contract_collector.txt', [0, 1], 0, Group, contract_algs, "IPFS Operation", "Time (sec)")
+# contract_collector.write_to_file('./f/contract_collector.txt', [0, 1], 0, Group, contract_algs, "IPFS Operation", "Time (sec)")
 plotter = Plotter()
 plotter.stacked_bar_err_plot('./f/contract_collector', './f/contract_collector.pdf')
