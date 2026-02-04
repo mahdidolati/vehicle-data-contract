@@ -1,10 +1,29 @@
-# Environment:
+# Identity-Based & Attribute-Based Cryptography for Data Sharing in Vehicular Networks via Blockchain
+
+## About
+This repository hosts the open-source implementation of our research paper “Blockchain-Based User-Centric Privacy-Preserving Framework for Vehicular Data Sharing and Monetization,” published in Elsevier’s Computers & Electrical Engineering journal. [Link to article.](https://www.sciencedirect.com/science/article/abs/pii/S0045790626000017?via%3Dihub)
+
+```
+@article{HOSSEIN2026110933,
+  title = {Blockchain-based user-centric privacy-preserving framework for vehicular data sharing and monetization},
+  journal = {Computers and Electrical Engineering},
+  volume = {132},
+  pages = {110933},
+  year = {2026},
+  issn = {0045-7906},
+  doi = {https://doi.org/10.1016/j.compeleceng.2026.110933},
+  url = {https://www.sciencedirect.com/science/article/pii/S0045790626000017},
+  author = {Koosha Mohammad Hossein and Negar Rezaei and Ahmad Khonsari and Mahdi Dolati and Tooska Dargahi and Meisam Babaie}
+}
+```
+
+## Environment:
 ```
 Operating System: Ubuntu 22.04.1 LTS
 Python: 3.7.16
 ```
 
-## Prepare the environment
+### Prepare the environment
 ```
 sudo apt update
 sudo apt install python3.7
@@ -37,7 +56,7 @@ sqlite> CREATE TABLE vehicleData(DATA_ADR text NOT NULL, DATA_VAL text NOT NULL)
 sqlite> CREATE TABLE vehicle_data(DATA_ADR text NOT NULL, DATA_VAL BLOB NOT NULL);
 ```
 
-# Run
+## Run
 Start the blockchain and the IPFS daemon:
 ```
 sudo ganache-cli --port 7545 --gasLimit 12000000 --accounts 10 --hardfork istanbul --mnemonic brownie --networkId glocal
@@ -54,7 +73,7 @@ IPFS_PATH=~/.ipfs ipfs repo gc
 ./run_experiment.sh
 ```
 
-# References:
+## References:
 [1] https://sesamedisk.com/smart-contracts-in-python-complete-guide/
 
 [2] https://chainstack.com/the-brownie-tutorial-series-part-1/
